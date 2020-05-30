@@ -1,12 +1,13 @@
 import numpy as np
 import os
+from .logger import logger
 
 MEDIA_DIR = ""
 VIDEO_DIR = ""
 VIDEO_OUTPUT_DIR = ""
 TEX_DIR = ""
 TEXT_DIR = ""
-
+TEX_TEMPLATE = None
 
 def initialize_directories(config):
     global MEDIA_DIR
@@ -52,8 +53,8 @@ def initialize_directories(config):
         if folder != "" and not os.path.exists(folder):
             os.makedirs(folder)
 
+
 NOT_SETTING_FONT_MSG='''
-Warning:
 You haven't set font.
 If you are not using English, this may cause text rendering problem.
 You set font like:
@@ -70,19 +71,6 @@ NORMAL = 'NORMAL'
 ITALIC = 'ITALIC'
 OBLIQUE = 'OBLIQUE'
 BOLD = 'BOLD'
-
-TEX_USE_CTEX = False
-TEX_TEXT_TO_REPLACE = "YourTextHere"
-TEMPLATE_TEX_FILE = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),
-    "tex_template.tex" if not TEX_USE_CTEX else "ctex_template.tex"
-)
-with open(TEMPLATE_TEX_FILE, "r") as infile:
-    TEMPLATE_TEXT_FILE_BODY = infile.read()
-    TEMPLATE_TEX_FILE_BODY = TEMPLATE_TEXT_FILE_BODY.replace(
-        TEX_TEXT_TO_REPLACE,
-        "\\begin{align*}\n" + TEX_TEXT_TO_REPLACE + "\n\\end{align*}",
-    )
 
 HELP_MESSAGE = """
    Usage:

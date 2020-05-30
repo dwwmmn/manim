@@ -3,8 +3,11 @@ import os
 import copy
 import hashlib
 import cairo
+
 from ...constants import *
+from ... import dirs
 from ...container.container import Container
+from ...logger import logger
 from ...mobject.geometry import Dot, Rectangle
 from ...mobject.svg.svg_mobject import SVGMobject
 from ...mobject.types.vectorized_mobject import VGroup
@@ -93,7 +96,7 @@ class Text(SVGMobject):
     def get_space_width(self):
         size = self.size * 10
 
-        dir_name = TEXT_DIR
+        dir_name = dirs.TEXT_DIR
         file_name = os.path.join(dir_name, "space") + '.svg'
 
         surface = cairo.SVGSurface(file_name, 600, 400)
@@ -287,9 +290,9 @@ class Text(SVGMobject):
 
         if self.font == '':
             if NOT_SETTING_FONT_MSG != '':
-                print(NOT_SETTING_FONT_MSG)
+                logger.warning(NOT_SETTING_FONT_MSG)
 
-        dir_name = TEXT_DIR
+        dir_name = dirs.TEXT_DIR
         hash_name = self.text2hash()
         file_name = os.path.join(dir_name, hash_name)+'.svg'
         if os.path.exists(file_name):
